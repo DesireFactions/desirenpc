@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity;
 
 import com.desiremc.npc.ai.AIEnvironment;
 import com.desiremc.npc.ai.AITask;
+import com.desiremc.npc.events.NPCDespawnEvent.NPCDespawnReason;
 
 /**
  * Represents a non player controlled nmsEntity
@@ -27,7 +28,7 @@ public interface NPC {
      *
      * @throws java.lang.IllegalStateException if the npc is already despawned
      */
-    public void despawn();
+    public void despawn(NPCDespawnReason reason);
 
     /**
      * Get the nmsEntity associated with this npc

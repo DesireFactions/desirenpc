@@ -27,8 +27,7 @@ public class EntityNPCPlayer extends EntityPlayer
         playerInteractManager.b(EnumGamemode.SURVIVAL);
         this.npc = npc;
         playerConnection = new NPCConnection(this);
-
-        setPosition(location.getX(), location.getY(), location.getZ());
+        setPositionRotation(location.getX(), location.getY(), location.getZ(), location.getPitch(), location.getYaw());
     }
 
     @Override

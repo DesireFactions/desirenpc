@@ -2,12 +2,15 @@ package com.desiremc.npc.nms;
 
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.desiremc.npc.NPC;
+import com.desiremc.npc.events.NPCDespawnEvent;
+import com.desiremc.npc.events.NPCDespawnEvent.NPCDespawnReason;
 import com.google.common.base.Preconditions;
 
 public abstract class NMSNPC<T extends INPCHook> extends BukkitRunnable implements NPC
@@ -29,8 +32,9 @@ public abstract class NMSNPC<T extends INPCHook> extends BukkitRunnable implemen
     }
 
     @Override
-    public void despawn()
+    public void despawn(NPCDespawnReason reason)
     {
+        Bukkit.getPluginManager().callEvent(new NPCDespawnEvent(this, reason));
         Preconditions.checkState(!isDestroyed(), "NPC has already been destroyed");
         Preconditions.checkState(isSpawned(), "NPC is not spawned");
         hook.getEntity().remove();
