@@ -151,7 +151,7 @@ public class NMSRegistry implements NPCRegistry, Listener
             String version = packageName.substring(packageName.lastIndexOf(".") + 1);
             if (!version.startsWith("v"))
                 return null;
-            Class<?> rawClass = Class.forName("net.techcable.npclib.nms.versions." + version + ".NMS");
+            Class<?> rawClass = Class.forName("com.desiremc.npc.nms.versions." + version + ".NMS");
             Class<? extends NMS> nmsClass = rawClass.asSubclass(NMS.class);
             Constructor<? extends NMS> constructor = nmsClass.getConstructor();
             return constructor.newInstance();

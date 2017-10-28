@@ -97,7 +97,7 @@ class NPCLibLoader {
             URL jarUrl = new URL(baseUrl + ".jar");
             loader = new NPCLibClassLoader(jarUrl);
             try {
-                loader.loadClass("net.techcable.npclib.NPCLib");
+                loader.loadClass("com.desiremc.npc.NPCLib");
             } catch (ClassNotFoundException e) {
                 throw new IOException("Unable to load NPCLib's main class", e);
             }
