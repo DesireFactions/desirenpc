@@ -13,14 +13,19 @@ import com.google.common.base.Preconditions;
 public class NMSHumanNPC extends NMSLivingNPC<IHumanNPCHook> implements HumanNPC
 {
 
-    public NMSHumanNPC(NMSRegistry registry, UUID id, String name)
+    public NMSHumanNPC(NMSRegistry registry, UUID id, String name, UUID skin)
     {
         super(registry, id, name, EntityType.PLAYER);
+        this.skin = skin;
     }
 
     @Override
     protected IHumanNPCHook doSpawn(Location toSpawn)
     {
+        if (DEBUG)
+        {
+            System.out.println("NMSHumanNPC.doSpawn(Location) called with " + toSpawn.toString() + ".");
+        }
         return NMSRegistry.getNms().spawnHumanNPC(toSpawn, this);
     }
 

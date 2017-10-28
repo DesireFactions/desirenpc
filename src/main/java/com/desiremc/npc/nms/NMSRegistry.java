@@ -1,13 +1,10 @@
 package com.desiremc.npc.nms;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Listener;
@@ -19,12 +16,13 @@ import com.desiremc.npc.LivingNPC;
 import com.desiremc.npc.NPC;
 import com.desiremc.npc.NPCRegistry;
 import com.google.common.base.Preconditions;
-import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableSet;
 
 public class NMSRegistry implements NPCRegistry, Listener
 {
+
+    public static final boolean DEBUG = false;
 
     private final Plugin plugin;
 
@@ -49,9 +47,20 @@ public class NMSRegistry implements NPCRegistry, Listener
     @Override
     public HumanNPC createHumanNPC(UUID uuid, String name)
     {
+        if (DEBUG)
+        {
+            System.out.println("NMSRegistry.createHumanNPC(UUID, String) called with values " + uuid + " and " + name + ".");
+        }
+        return createHumanNPC(uuid, name, uuid);
+    }
+
+    public HumanNPC createHumanNPC(UUID uuid, String name, UUID skin)
+    {
+
         Preconditions.checkNotNull(uuid, "Cant have null id");
         Preconditions.checkNotNull(name, "Cant have null name");
-        NMSHumanNPC npc = new NMSHumanNPC(this, uuid, name);
+        Preconditions.checkNotNull(skin, "Cant have null skin");
+        NMSHumanNPC npc = new NMSHumanNPC(this, uuid, name, uuid);
         npcs.put(uuid, npc);
         return npc;
     }
@@ -143,30 +152,6 @@ public class NMSRegistry implements NPCRegistry, Listener
 
     private static NMS makeNms()
     {
-        try
-        {
-            if (Bukkit.getServer() == null)
-                return null;
-            String packageName = Bukkit.getServer().getClass().getPackage().getName();
-            String version = packageName.substring(packageName.lastIndexOf(".") + 1);
-            if (!version.startsWith("v"))
-                return null;
-            Class<?> rawClass = Class.forName("com.desiremc.npc.nms.versions." + version + ".NMS");
-            Class<? extends NMS> nmsClass = rawClass.asSubclass(NMS.class);
-            Constructor<? extends NMS> constructor = nmsClass.getConstructor();
-            return constructor.newInstance();
-        }
-        catch (ClassNotFoundException ex)
-        {
-            throw new UnsupportedOperationException("Unsupported nms version", ex);
-        }
-        catch (InvocationTargetException ex)
-        {
-            throw Throwables.propagate(ex.getTargetException());
-        }
-        catch (Exception ex)
-        {
-            throw Throwables.propagate(ex);
-        }
+        return new com.desiremc.npc.nms.versions.v1_7_R4.NMS();
     }
 }

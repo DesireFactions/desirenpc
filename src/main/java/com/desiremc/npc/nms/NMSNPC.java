@@ -16,6 +16,8 @@ import com.google.common.base.Preconditions;
 public abstract class NMSNPC<T extends INPCHook> extends BukkitRunnable implements NPC
 {
 
+    protected static final boolean DEBUG = false;
+    
     private final NMSRegistry registry;
     private T hook;
     private final UUID id;

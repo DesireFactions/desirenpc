@@ -25,9 +25,15 @@ import net.minecraft.server.v1_7_R4.PacketPlayOutEntityStatus;
 public class LivingNPCHook extends NPCHook implements ILivingNPCHook
 {
 
+    protected static final boolean DEBUG = false;
+
     public LivingNPCHook(LivingNPC npc, Location toSpawn, EntityType type)
     {
         super(npc);
+        if (DEBUG)
+        {
+            System.out.println("LivingNPCHook(HumanNPC, Location, EntityType) called with values " + npc.getUUID().toString() + " and " + toSpawn.toString() + " and " + type.toString() + ".");
+        }
         this.nmsEntity = spawn(toSpawn, type);
         getNmsEntity().spawnIn(NMS.getHandle(toSpawn.getWorld()));
         getNmsEntity().setPositionRotation(toSpawn.getX(), toSpawn.getY(), toSpawn.getZ(), toSpawn.getYaw(), toSpawn.getPitch());
@@ -157,7 +163,7 @@ public class LivingNPCHook extends NPCHook implements ILivingNPCHook
 
     @SuppressWarnings("deprecation")
     protected EntityLiving spawn(Location toSpawn, EntityType type)
-    { // TODO Update this each version with new entities
+    {
         if (type.isAlive())
             throw new UnsupportedOperationException("Unsupported living entity: " + type.getName());
         else

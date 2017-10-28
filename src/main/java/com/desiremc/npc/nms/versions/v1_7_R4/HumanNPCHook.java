@@ -104,6 +104,10 @@ public class HumanNPCHook extends LivingNPCHook implements IHumanNPCHook
     protected EntityNPCPlayer spawn(Location toSpawn, EntityType type)
     {
         Preconditions.checkArgument(type == EntityType.PLAYER, "HumanNPCHook can only handle players");
+        if (DEBUG)
+        {
+            System.out.println("HumanNPCHook.spawn(Location, EntityType) called with values " + toSpawn.toString() + " and " + type + ".");
+        }
         EntityNPCPlayer entity = new EntityNPCPlayer(getNpc(), toSpawn);
         this.nmsEntity = entity;
         showInTablist();

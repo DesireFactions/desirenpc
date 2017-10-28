@@ -35,6 +35,8 @@ import net.minecraft.util.com.mojang.authlib.GameProfile;
 public class NMS implements com.desiremc.npc.nms.NMS
 {
 
+    private static final boolean DEBUG = false;
+
     private static NMS instance;
 
     public NMS()
@@ -51,6 +53,10 @@ public class NMS implements com.desiremc.npc.nms.NMS
     @Override
     public IHumanNPCHook spawnHumanNPC(Location toSpawn, HumanNPC npc)
     {
+        if (DEBUG)
+        {
+            System.out.println("NMS.spawnHumanNPC(Location, HumanNPC) called with values " + toSpawn.toString() + " and " + npc.toString() + ".");
+        }
         return new HumanNPCHook(npc, toSpawn);
     }
 
