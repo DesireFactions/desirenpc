@@ -29,7 +29,6 @@ public class NPCLib
     {
         if (hasNMS())
         {
-            NPCMetrics.addUsingPlugin(plugin);
             if (defaultNMS == null)
             {
                 defaultNMS = new NMSRegistry(plugin);
@@ -46,7 +45,6 @@ public class NPCLib
     {
         if (hasNMS())
         {
-            NPCMetrics.addUsingPlugin(plugin);
             if (!registryMap.containsKey(name))
             {
                 registryMap.put(name, new NMSRegistry(plugin));
