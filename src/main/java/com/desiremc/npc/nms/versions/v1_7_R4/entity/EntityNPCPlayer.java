@@ -1,7 +1,5 @@
 package com.desiremc.npc.nms.versions.v1_7_R4.entity;
 
-import java.util.UUID;
-
 import org.bukkit.Location;
 
 import com.desiremc.npc.HumanNPC;
@@ -42,7 +40,7 @@ public class EntityNPCPlayer extends EntityPlayer
 
     private static GameProfile makeProfile(HumanNPC npc)
     {
-        GameProfile profile = new GameProfile(UUID.randomUUID(), npc.getName());
+        GameProfile profile = new GameProfile(npc.getUUID(), npc.getName());
         NMS.setSkin(profile, npc.getSkin());
         return profile;
     }

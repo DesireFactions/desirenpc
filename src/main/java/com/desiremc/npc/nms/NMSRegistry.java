@@ -37,13 +37,7 @@ public class NMSRegistry implements NPCRegistry, Listener
     {
         return this.plugin;
     }
-
-    @Override
-    public HumanNPC createHumanNPC(String name)
-    {
-        return createHumanNPC(UUID.randomUUID(), name);
-    }
-
+    
     @Override
     public HumanNPC createHumanNPC(UUID uuid, String name)
     {
@@ -61,14 +55,17 @@ public class NMSRegistry implements NPCRegistry, Listener
         Preconditions.checkNotNull(name, "Cant have null name");
         Preconditions.checkNotNull(skin, "Cant have null skin");
         NMSHumanNPC npc = new NMSHumanNPC(this, uuid, name, uuid);
+        if (DEBUG)
+        {
+            System.out.println("====== Print NPC sizes");
+            System.out.println("NMSRegistry.createHumanNPC(UUID, String, UUID) npcs size: " + npcs.size());
+        }
         npcs.put(uuid, npc);
+        if (DEBUG)
+        {
+            System.out.println("NMSRegistry.createHumanNPC(UUID, String, UUID) npcs size: " + npcs.size());
+        }
         return npc;
-    }
-
-    @Override
-    public LivingNPC createLivingNPC(String name, EntityType type)
-    {
-        return createLivingNPC(UUID.randomUUID(), name, type);
     }
 
     @Override
@@ -98,6 +95,11 @@ public class NMSRegistry implements NPCRegistry, Listener
     @Override
     public NPC getByUUID(UUID uuid)
     {
+        if (DEBUG)
+        {
+            System.out.println("NMSRegistry.getByUUID(UUID) called with value: " + uuid);
+            System.out.println("NMSRegistry.getByUUID(UUID) npcs size: " + npcs.size());
+        }
         return npcs.get(uuid);
     }
 
