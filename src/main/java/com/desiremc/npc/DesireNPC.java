@@ -1,6 +1,11 @@
 package com.desiremc.npc;
 
-public class DesireNPC
-{
+import org.bukkit.plugin.java.JavaPlugin;
 
+public class DesireNPC extends JavaPlugin
+{
+    public void onEnable()
+    {
+
+    }
 }
